@@ -1,0 +1,283 @@
+{
+  "info": {
+    "name": "API Battle - FIFA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://177.44.248.73:3000"
+    },
+    {
+      "key": "apiKey",
+      "value": "fifa-battle-2026"
+    }
+  ],
+  "item": [
+    {
+      "name": "POST /fifa - insere jogador",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 201\", ()=>pm.response.to.have.status(201));",
+              "pm.test(\"Tempo (ms): \"+pm.response.responseTime, ()=>true);",
+              "pm.test(\"Retorna player_id\", ()=>pm.expect(pm.response.json().player_id).to.be.a(\"number\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/fifa",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "fifa"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"player_name\": \"Teste Postman\",\n  \"age\": 25,\n  \"nationality\": \"Brazil\",\n  \"club\": \"Gremio\",\n  \"position\": \"ST\",\n  \"overall_rating\": 80,\n  \"potential_rating\": 85,\n  \"matches_played\": 30,\n  \"goals\": 15,\n  \"assists\": 7,\n  \"minutes_played\": 2500,\n  \"market_value_million_eur\": 20.5,\n  \"contract_years_left\": 3,\n  \"injury_prone\": \"No\",\n  \"transfer_risk_level\": \"Low\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "GET /fifa/count",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", ()=>pm.response.to.have.status(200));",
+              "pm.test(\"Tempo (ms): \"+pm.response.responseTime, ()=>true);",
+              "pm.test(\"count numérico\", ()=>pm.expect(pm.response.json().count).to.be.a(\"number\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/fifa/count",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "fifa",
+            "count"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /fifa - todos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", ()=>pm.response.to.have.status(200));",
+              "pm.test(\"Tempo (ms): \"+pm.response.responseTime, ()=>true);",
+              "pm.test(\"array\", ()=>pm.expect(pm.response.json()).to.be.an(\"array\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/fifa",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "fifa"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /fifa/id/{id}",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", ()=>pm.response.to.have.status(200));",
+              "pm.test(\"Tempo (ms): \"+pm.response.responseTime, ()=>true);",
+              "pm.test(\"player_id = 1\", ()=>pm.expect(pm.response.json().player_id).to.eql(1));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/fifa/id/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "fifa",
+            "id",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /fifa/nat/{exp} - Brazil",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", ()=>pm.response.to.have.status(200));",
+              "pm.test(\"Tempo (ms): \"+pm.response.responseTime, ()=>true);",
+              "pm.test(\"só Brazil\", ()=>pm.response.json().forEach(p=>pm.expect(p.nationality).to.eql(\"Brazil\")));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/fifa/nat/Brazil",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "fifa",
+            "nat",
+            "Brazil"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /fifa/id/{id} - inexistente (404)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", ()=>pm.response.to.have.status(404));",
+              "pm.test(\"Tempo (ms): \"+pm.response.responseTime, ()=>true);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/fifa/id/999999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "fifa",
+            "id",
+            "999999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST /fifa - sem chave (401)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 401\", ()=>pm.response.to.have.status(401));",
+              "pm.test(\"Tempo (ms): \"+pm.response.responseTime, ()=>true);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/fifa",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "fifa"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"player_name\": \"Teste Postman\",\n  \"age\": 25,\n  \"nationality\": \"Brazil\",\n  \"club\": \"Gremio\",\n  \"position\": \"ST\",\n  \"overall_rating\": 80,\n  \"potential_rating\": 85,\n  \"matches_played\": 30,\n  \"goals\": 15,\n  \"assists\": 7,\n  \"minutes_played\": 2500,\n  \"market_value_million_eur\": 20.5,\n  \"contract_years_left\": 3,\n  \"injury_prone\": \"No\",\n  \"transfer_risk_level\": \"Low\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

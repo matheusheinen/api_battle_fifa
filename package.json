@@ -1,0 +1,24 @@
+{
+  "name": "fifa-api",
+  "version": "1.0.0",
+  "description": "API Battle - FIFA Player Performance",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "seed": "node scripts/seed.js",
+    "seed:reset": "node scripts/seed.js --reset"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/swagger": "^9.9.2",
+    "@fastify/swagger-ui": "^6.1.2",
+    "fastify": "^5.12.7",
+    "fastify-plugin": "^6.0.1",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "autocannon": "^8.0.0"
+  }
+}
